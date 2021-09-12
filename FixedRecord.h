@@ -32,15 +32,19 @@ struct Alumno {
         std::cout << "\n";
     }
 
-    void asignarValores(std::string codigo_, std::string nombre_, std::string apellidos_, std::string carrera_){
+    void asignarValores(std::string codigo_, std::string nombre_, std::string apellidos_,std::string carrera_){
+
+        //Se asignan los datos del alumno
         strcpy(codigo,codigo_.c_str());
         strcpy(nombre,nombre_.c_str());
         strcpy(apellidos,apellidos_.c_str());
         strcpy(carrera,carrera_.c_str());
+
+        //Se asignan espacios en blanco para que no sea NULL
         codigo[codigo_.length()]=' ';
         nombre[nombre_.length()]=' ';
         apellidos[apellidos_.length()]=' ';
-        carrera[carrera_.length()]='\n';
+        carrera[carrera_.length()]=' ';
     }
 
 };
@@ -51,52 +55,58 @@ private:
     std::string fileName;
 
 public:
-    FixedRecord(const std::string nombreArchivo) {
+    FixedRecord(std::string nombreArchivo) {
         this->fileName = nombreArchivo;
-    }
-
-    void add(Alumno alumno) {
-        std::ofstream file(fileName,std::ios::out);
-        if (!file.is_open())
-            std::cout << "El archivo no pudo abrirse" << std::endl;
-        else{
-            file.seekp(std::ios::end);
-            file << alumno.codigo << alumno.nombre << alumno.apellidos << alumno.carrera;
-        }
-        file.close();
-        //std::ofstream File;
-        //File.open(fileName, std::ios::app);
-        //File.write((char *) &alumno, sizeof(alumno));
-        //File.close();
     }
 
     std::vector<Alumno> load() {
         std::vector<Alumno> alumnos;
+        //Accediendo al archivo
         std::ifstream File;
         std::string registro;
         File.open(fileName, std::ios::in);
+        //Obtenemos cada uno de los registros del archivo
         while (getline(File, registro)) {
-            Alumno alumno;
+            Alumno alumno = Alumno();
+            //Se asigna cada parte del registro a su correspondiente atributo en alumno
             strncpy(alumno.codigo, registro.substr(0, 4).c_str(), 5);
             strncpy(alumno.nombre, registro.substr(5, 10).c_str(), 11);
             strncpy(alumno.apellidos, registro.substr(16, 19).c_str(), 20);
             strncpy(alumno.carrera, registro.substr(36, 14).c_str(), 15);
+            //Se añade el alumno al vector
             alumnos.push_back(alumno);
         }
         File.close();
         return alumnos;
     }
 
+    void add(Alumno alumno) {
+        char saltoLinea = '\n';
+        //Accedemos al archivo
+        std::ofstream outFile;
+        outFile.open(fileName, std::ios::app);
+        //Escribimos en el archivo un salto de linea
+        outFile.write((char*) &saltoLinea, sizeof (saltoLinea));
+        //Escribimos el nuevo registro en el archivo
+        outFile.write((char*) &alumno, sizeof (alumno));
+        outFile.close();
+    }
+
     Alumno readRecord(const int &pos) {
+        //Accediendo al archivo
         std::ifstream File;
         std::string registro;
         File.open(fileName, std::ios::in);
 
+        //Se calcula la posicion fisica del registro
         int physical = pos * (sizeof(Alumno) + 2);
+        //Se apunta a la posicion fisica
         File.seekg(physical);
 
+        //Se obtiene el registro de esa posicion
         getline(File, registro);
         Alumno alumno;
+        //Se asigna cada parte del registro a su correspondiente atributo en alumno
         strncpy(alumno.codigo, registro.substr(0, 4).c_str(), 5);
         strncpy(alumno.nombre, registro.substr(5, 10).c_str(), 11);
         strncpy(alumno.apellidos, registro.substr(16, 19).c_str(), 20);
