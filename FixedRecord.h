@@ -32,6 +32,17 @@ struct Alumno {
         std::cout << "\n";
     }
 
+    void asignarValores(std::string codigo_, std::string nombre_, std::string apellidos_, std::string carrera_){
+        strcpy(codigo,codigo_.c_str());
+        strcpy(nombre,nombre_.c_str());
+        strcpy(apellidos,apellidos_.c_str());
+        strcpy(carrera,carrera_.c_str());
+        codigo[codigo_.length()]=' ';
+        nombre[nombre_.length()]=' ';
+        apellidos[apellidos_.length()]=' ';
+        carrera[carrera_.length()]='\n';
+    }
+
 };
 
 class FixedRecord {
@@ -45,10 +56,18 @@ public:
     }
 
     void add(Alumno alumno) {
-        std::ofstream File;
-        File.open(fileName, std::ios::app);
-        File.write((char *) &alumno, sizeof(alumno));
-        File.close();
+        std::ofstream file(fileName,std::ios::out);
+        if (!file.is_open())
+            std::cout << "El archivo no pudo abrirse" << std::endl;
+        else{
+            file.seekp(std::ios::end);
+            file << alumno.codigo << alumno.nombre << alumno.apellidos << alumno.carrera;
+        }
+        file.close();
+        //std::ofstream File;
+        //File.open(fileName, std::ios::app);
+        //File.write((char *) &alumno, sizeof(alumno));
+        //File.close();
     }
 
     std::vector<Alumno> load() {
