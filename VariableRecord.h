@@ -26,8 +26,8 @@ struct Alumno{
         Apellidos = apellidos_;
         Carrera = carrera_;
         mensualidad = mensualidad_;
-
     }
+
 };
 
 class VariableRecord{
@@ -75,7 +75,15 @@ public:
     }
 
     void add(Alumno record){
-
+        std::string registro;
+        //Creamos el registro a agregar
+        registro = record.Nombre + '|' + record.Apellidos + '|' + record.Carrera + '|' + std::to_string(record.mensualidad) + '\n';
+        //Abrimos el archivo
+        std::ofstream File;
+        File.open(fileName, std::ofstream::app);
+        //Agregamos el registro al archivo
+        File<<registro;
+        File.close();
     }
 
     Alumno readRecord(int pos){

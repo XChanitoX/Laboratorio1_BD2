@@ -80,7 +80,7 @@ public:
         return alumnos;
     }
 
-    void add(Alumno alumno) {
+    void add(Alumno record) {
         char saltoLinea = '\n';
         //Accedemos al archivo
         std::ofstream outFile;
@@ -88,7 +88,7 @@ public:
         //Escribimos en el archivo un salto de linea
         outFile.write((char*) &saltoLinea, sizeof (saltoLinea));
         //Escribimos el nuevo registro en el archivo
-        outFile.write((char*) &alumno, sizeof (alumno));
+        outFile.write((char*) &record, sizeof (record));
         outFile.close();
     }
 

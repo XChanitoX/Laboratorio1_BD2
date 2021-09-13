@@ -14,18 +14,18 @@ int main(){
     alumnos[1].imprimir();
     alumnos[2].imprimir();
 
-/*
+
     cout << "-------------------add------------------" << endl;
     Alumno alumnoA = Alumno();
     std::string nombre, apellidos, carrera;
     float mensualidad;
-    nombre = "0008";
-    apellidos = "Luis";
-    carrera = "Ango Rivera";
-    mensualidad = 1500.00;
+    nombre = "Luis";
+    apellidos = "Ango Rivera";
+    carrera = "Bioingenieria";
+    mensualidad = 2200.00;
     alumnoA.asignarValores(nombre, apellidos, carrera, mensualidad);
     funcionPrincipal.add(alumnoA);
-    cout << "Alumno agregado con exito." << endl;*/
+    cout << "Alumno agregado con exito." << endl;
 
 
     cout << endl << "----------------readRecord--------------" << endl;
