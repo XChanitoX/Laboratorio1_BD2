@@ -37,6 +37,10 @@ int main() {
 
     cout << "=== P2 ===\n";
 
+    /* Conviene usar un archivo binario para reducir el peso del archivo. Guardar un número entero como una cadena de
+     * caracteres puede consumir muchos bytes cuando en binario ocuparía 4 bytes. Las operaciones para leer y escribir
+     * son mucho más limpias.*/
+
     cout << "Test 01" << '\n';
 
     FixedRecordBin frb01("../archivos/P2.bin");
@@ -92,6 +96,14 @@ int main() {
     records03 = frb03.load();
 
     assert(std::string(records03[3]._nombre) == "Vanesa");
+
+    cout << "Todo se ejecuto correctamente\n";
+
+    cout << "=== P4 ==="
+
+    cout << "Test 01" << '\n';
+    cout << "Test 02" << '\n';
+    cout << "Test 03" << '\n';
 
     cout << "Todo se ejecuto correctamente\n";
 
