@@ -3,7 +3,7 @@
 
 using namespace std;
 
-int main(){
+int main() {
     string fileName = "../archivos/datos1.txt";
     FixedRecord funcionPrincipal = FixedRecord(fileName);
 
@@ -32,5 +32,4 @@ int main(){
     alumnoB = funcionPrincipal.readRecord(2);
     alumnoB.imprimir();
 
-    return 0;
 }
