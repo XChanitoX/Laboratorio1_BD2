@@ -20,10 +20,14 @@ struct AlumnoCM {
     int _ciclo;
     float _mensualidad;
 
+    int _nextDelete;
+
     AlumnoCM();
 
     AlumnoCM(std::string _codigo, std::string _nombre, std::string _apellidos, std::string _carrera, int ciclo,
-             float mensualidad);
+             float mensualidad, int nextDelete = -1);
+
+    void setNextDelete(int nextDelete);
 };
 
 class FixedRecordBin {
