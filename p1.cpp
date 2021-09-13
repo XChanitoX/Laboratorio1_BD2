@@ -36,32 +36,34 @@ int main() {
 
     FixedRecordBin frb03("../archivos/P2.bin");
 
-    cout << "===" << '\n';
-    auto records03 = frb03.load();
-    for (const auto &r: records03)
-        cout << r._nombre << ' ' << r._nextDelete << '\n';
-    cout << "===" << '\n';
-
     frb03.remove(0);
     frb03.remove(2);
 
-    cout << "===" << '\n';
-    records03 = frb03.load();
-    for (const auto &r: records03)
-        cout << r._nombre << ' ' << r._nextDelete << '\n';
-    cout << "===" << '\n';
+    auto records03 = frb03.load();
+
+    assert(records03[0]._nextDelete == -2);
+    assert(records03[2]._nextDelete == 0);
 
     AlumnoCM alumno06("0006", "Jesus", "Vega Cordero", "Mecatronica", 8, 10.50);
-
     frb03.add(alumno06);
 
-    cout << "===" << '\n';
     records03 = frb03.load();
-    for (const auto &r: records03)
-        cout << r._nombre << ' ' << r._nextDelete << '\n';
-    cout << "===" << '\n';
+
+    assert(std::string(records03[2]._nombre) == "Jesus");
 
     AlumnoCM alumno07("0007", "Heider", "Sanchez Quizpe", "Mecatronica", 3, 1.50);
+    frb03.add(alumno07);
+
+    records03 = frb03.load();
+
+    assert(std::string(records03[0]._nombre) == "Heider");
+
+    AlumnoCM alumno05("0005", "Vanesa", "Cooper Quizpe", "Mecatronica", 7, 890.85);
+    frb03.add(alumno05);
+
+    records03 = frb03.load();
+
+    assert(std::string(records03[3]._nombre) == "Vanesa");
 
     cout << "Todo se ejecuto correctamente\n";
     return 0;

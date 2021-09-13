@@ -70,8 +70,14 @@ void FixedRecordBin::add(AlumnoCM record) {
         file.seekp(0, std::ios::end);
         file.write(reinterpret_cast<char *>(&record), sizeof(AlumnoCM));
     } else {
-        file.seekp(sizeof(int));
-        file.seekp(k * sizeof(AlumnoCM));
+        file.seekg(k * sizeof(AlumnoCM) + sizeof(int), std::ios::beg);
+        AlumnoCM alumnno{};
+        file.read(reinterpret_cast<char *>(&alumnno), sizeof(alumnno));
+
+        file.seekp(0, std::ios::beg);
+        file.write(reinterpret_cast<char *>(&alumnno._nextDelete), sizeof(int));
+
+        file.seekp(k * sizeof(AlumnoCM) + sizeof(int), std::ios::beg);
         file.write(reinterpret_cast<const char *>(&record), sizeof(AlumnoCM));
     }
     file.close();
@@ -98,6 +104,7 @@ bool FixedRecordBin::remove(int pos) {
     file.read(reinterpret_cast<char *>(&del), sizeof(AlumnoCM));
     if (del._nextDelete != -1) return false;
 
+    file.seekp(0, std::ios::beg);
     file.write(reinterpret_cast<char *>(&pos), sizeof(int));
     file.seekp(pos * sizeof(AlumnoCM) + sizeof(int), std::ios::beg);
     del.setNextDelete(k);
