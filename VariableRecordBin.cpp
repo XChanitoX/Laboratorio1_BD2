@@ -31,7 +31,15 @@ std::vector<Matricula> VariableRecordBin::load() {
 }
 
 void VariableRecordBin::add(Matricula record) {
+    std::ofstream file(_filename, std::ios::binary | std::ios::app | std::ios::ate);
+    int pos = file.tellp();
+    file.write(reinterpret_cast<char *>(&record), sizeof(record));
+    file.close();
 
+    std::ofstream metafile("metadata." + _filename, std::ios::binary | std::ios::app);
+    MetaDataMatricula metaDataMatricula = {pos, sizeof(record)};
+    metafile.write(reinterpret_cast<char *> (&metaDataMatricula), sizeof(metaDataMatricula));
+    metafile.close();
 }
 
 Matricula VariableRecordBin::readRecord(int pos) {
