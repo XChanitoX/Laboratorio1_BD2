@@ -4,5 +4,4 @@
 0004 Pamela     Vargas Cordero      Industrial     
 0005 Vanesa     Cooper Quizpe       Mecatronica    
 0006 Jesus      Vega Cordero        Industrial     
-0007 Heider     Sanchez Quizpe      Mecatronica    
-0008 Luis       Ango Rivera         Bioingenieria  
+0007 Heider     Sanchez Quizpe      Mecatronica
