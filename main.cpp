@@ -119,9 +119,8 @@ int main() {
 
     auto records = vrb01.load();
 
-    for (const auto &r :records) {
+    for (const auto &r :records)
         cout << r._codigo << ' ' << r._ciclo << ' ' << r._mensualidad << ' ' << r._observaciones << '\n';
-    }
 
     assert(records[0]._ciclo == 3);
     assert(abs(records[1]._mensualidad - matricula02._mensualidad) < 1e6);
