@@ -22,10 +22,11 @@ struct MetaDataMatricula {
 };
 
 class VariableRecordBin {
-    std::string _filename;
+    std::string _filename{};
+    std::string _metafilename{};
 
 public:
-    VariableRecordBin(std::string  filename);
+    VariableRecordBin(std::string filename);
 
     std::vector<Matricula> load();
 
